@@ -26,12 +26,3 @@ class Message(Base):
             "room_id": self.room_id,
             "time": self.time
         }
-
-def generate_message(dict):
-    return Message(
-        dict.get("id"),
-        dict.get("speaker"),
-        dict.get("message"),
-        dict.get("room_id"),
-        dict.get("time")
-    )

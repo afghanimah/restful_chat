@@ -24,13 +24,3 @@ class User(Base):
             "status": self.status,
             "location": self.location
         }
-
-def generate_user(dict):
-    u = User(
-        dict.get("id"),
-        dict.get("name"),
-        dict.get("password")
-    )
-    u.status = dict.get("status")
-    u.location = dict.get("location")
-    return u

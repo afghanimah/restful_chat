@@ -31,16 +31,3 @@ class Room(Base):
         "admin": self.admin,
         "users": [x.id for x in self.users]
         }
-
-def generate_room(dict):
-    r = Room(
-        dict.get("id"),
-        dict.get("name"),
-        dict.get("description"),
-        dict.get("space"),
-        dict.get("admin"),
-        dict.get("password")
-    )
-    r.users = dict.get("users")
-    r.chatbot = dict.get("chatbot")
-    return r

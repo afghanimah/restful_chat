@@ -3,10 +3,6 @@ import hashlib
 import json
 import os
 
-from user import User, generate_user
-from room import Room, generate_room
-from message import Message, generate_message
-
 hosts = ["http://localhost:5000", "https://cool--server.herokuapp.com"]
 host = ""
 current_user = None
@@ -50,7 +46,6 @@ def display():
 
 def show_messages(json):
     for m in json[-14:]:
-        # msg = generate_message(m)
         print("{}: {}".format(m.get("speaker"), m.get("message")))
 
 def show_help():
@@ -132,7 +127,6 @@ def connect_hub_room():
     if data.get("success") == False:
         return False
     print("Connected to main room!\n")
-    # current_room = generate_room(data.get("room"))
     current_room = data.get("room")
     return True
 
@@ -147,7 +141,6 @@ def register():
     }
     r = requests.put(url = host + "/register", json = data)
     data = r.json()
-    # current_user = generate_user(data.get("user"))
     current_user = data.get("user")
     return data.get("success") == True
 
@@ -162,7 +155,6 @@ def login():
     }
     r = requests.post(url = host + "/login", json = data)
     data = r.json()
-    # current_user = generate_user(data.get("user"))
     current_user = data.get("user")
     return data.get("success") == True
 
