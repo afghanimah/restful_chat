@@ -1,7 +1,7 @@
 # Hello!
 This is a set of 2 scripts.  The app and client scripts.  The app script is running on a host and the client is what you will be running on your machine.
 
-This project is a client/server project made for fun, however if was implemented using HTTP requests rather than socket programming.  Since this is a chatting app, socket programming is much MUCH better, but ehhhhhh... I didn't care as much about efficiency as much as figuring out how to setup a database on the host.  I could have done a different project that made more sense with HTTP, but this seemed like more fun than a generic CRUD system.
+This project is a client/server project made for fun, however if was implemented using a RESTful design rather than with sockets.  Since this is a chatting app, using sockets would be much MUCH better, but ehhhhhh... I didn't care as much about efficiency as much as figuring out how to setup a database on the host.  I could have done a different project that made more sense with REST, but this seemed like more fun than a generic CRUD system.
 
 # Instructions for Setting up Client app
 Note: these instructions were only tested for MacOS
@@ -42,7 +42,7 @@ After establishing that the server is online, you will be asked to **register** 
 
 If you successfully connected to the server, then you will be put into the **Main Room**.  There is only 1 room at this time.
 
-Now you can type a message and send it to other users.  Due to the nature of using HTTP instead of sockets, you will only get updated information when you send a new message.
+Now you can type a message and send it to other users.  Due to the RESTful nature of the system (not using sockets), you will only get updated information when you send a new message.
 
 Type `@help` to get a list of commands:
 - `@exit` or `@logout` to logout of the server
