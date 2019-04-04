@@ -11,6 +11,14 @@ import inserts
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/message/<int:room_id>", methods = ["GET"])
+def get_messages(room_id):
+    session = Session()
+    msgs = session.query(Message).filter(Message.room_id == room_id).all()
+    msgs = [x.to_dict() for x in msgs]
+    session.close()
+    return jsonify({"messages": msgs})
+
 @app.route("/message", methods = ["POST"])
 def send_message():
     session = Session()
