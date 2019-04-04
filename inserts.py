@@ -1,4 +1,4 @@
-from app_base import Session, engine, Base
+from base import Session, engine, Base
 from user import User
 from room import Room
 from message import Message

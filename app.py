@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from datetime import datetime
 
-from app_base import Session
+from base import Session
 from user import User
 from room import Room
 from message import Message
@@ -10,16 +10,7 @@ from message import Message
 app = Flask(__name__)
 CORS(app)
 
-#admin, admin
-users = [
-    User(0, "admin", "103ed64fd2ec3a053dd50bca44ddf7ed6cdeedf83963c44044b494ea69afa52e")
-]
-
-rooms = [
-    Room(0, "Main Room", "Initial room you connect to.", 100, "admin")
-]
-
-messages = []
+#un: admin, pw: admin
 
 @app.route("/message", methods = ["POST"])
 def send_message():
