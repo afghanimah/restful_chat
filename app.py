@@ -6,11 +6,10 @@ from base import Session
 from user import User
 from room import Room
 from message import Message
+import inserts
 
 app = Flask(__name__)
 CORS(app)
-
-#un: admin, pw: admin
 
 @app.route("/message", methods = ["POST"])
 def send_message():
@@ -123,4 +122,5 @@ def connect():
     return jsonify({"success": True})
 
 if __name__ == '__main__':
+    inserts.setup_db()
     app.run(debug=True)

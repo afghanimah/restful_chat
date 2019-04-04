@@ -3,15 +3,23 @@ from user import User
 from room import Room
 from message import Message
 
-Base.metadata.create_all(engine)
+def setup_db():
+    Base.metadata.create_all(engine)
 
-session = Session()
+    session = Session()
 
-admin = User(0, "admin", "103ed64fd2ec3a053dd50bca44ddf7ed6cdeedf83963c44044b494ea69afa52e")
-hub = Room(0, "Main Room", "Initial room you connect to.", 100, "admin")
+    if session.query(User).first() == None:
+        # plain text password: admin
+        session.add(
+            User(0, "admin", "103ed64fd2ec3a053dd50bca44ddf7ed6cdeedf83963c44044b494ea69afa52e")
+        )
+    if session.query(Room).first() == None:
+        session.add(
+            Room(0, "Main Room", "Initial room you connect to.", 100, "admin")
+        )
 
-session.add(admin)
-session.add(hub)
+    session.commit()
+    session.close()
 
-session.commit()
-session.close()
+if __name__ == '__main__':
+    setup_db()
