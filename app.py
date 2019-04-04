@@ -39,15 +39,16 @@ def enter_room():
     user_id = r.get("user_id")
     room_id = r.get("room_id")
 
-    r = session.query(Room).filter(Room.id == room_id).all()
-    if len(r) == 0:
+    r = session.query(Room).filter(Room.id == room_id).first()
+    u = session.query(User).filter(User.id == user_id).first()
+    if r == None or u == None:
         session.close()
         return jsonify({"success": False})
-    if len(r[0].users) >= r[0].space:
+    elif len(r.users) >= r.space:
         session.close()
         return jsonify({"success": False})
-    r[0].users.append(session.query(User).filter(User.id == user_id).all()[0])
-    room = r[0].to_dict()
+    r.users.append(u)
+    room = r.to_dict()
     session.commit()
     session.close()
     return jsonify({"room": room})
@@ -59,14 +60,15 @@ def exit_room():
     user_id = r.get("user_id")
     room_id = r.get("room_id")
 
-    r = session.query(Room).filter(Room.id == room_id).all()
-    if len(r) == 0:
+    r = session.query(Room).filter(Room.id == room_id).first()
+    u = session.query(User).filter(User.id == user_id).first()
+    if r == None or u == None:
         session.close()
         return jsonify({"success": False})
-    if len(r[0].users) >= r[0].space:
+    elif len(r.users) >= r.space:
         session.close()
         return jsonify({"success": False})
-    r[0].users.remove(session.query(User).filter(User.id == user_id).all()[0])
+    r.users.remove(u)
 
     session.commit()
     session.close()
@@ -75,13 +77,24 @@ def exit_room():
 @app.route("/rooms/<int:room_id>", methods = ["GET"])
 def get_room(room_id):
     session = Session()
-    r = session.query(Room).filter(Room.id == room_id).all()
-    if len(r) == 0:
+    r = session.query(Room).filter(Room.id == room_id).first()
+    if r == None:
         session.close()
         return jsonify({"room": None})
-    room = r[0].to_dict()
+    r = r.to_dict()
     session.close()
-    return jsonify({"room": room})
+    return jsonify({"room": r})
+
+@app.route("/users/<int:user_id>", methods = ["GET"])
+def get_user(user_id):
+    session = Session()
+    u = session.query(User).filter(User.id == user_id).first()
+    if u == None:
+        session.close()
+        return jsonify({"user": None})
+    user = u.to_dict()
+    session.close()
+    return jsonify({"user": user})
 
 @app.route("/register", methods = ["PUT"])
 def register():
@@ -110,7 +123,7 @@ def login():
     pw = r.get("password")
 
     u = session.query(User).filter(User.name == un and User.password == pw).all()
-    if len(u) == 0:
+    if len(u) != 1:
         session.close()
         return jsonify({"success": False})
     user = u[0].to_dict()
