@@ -19,7 +19,7 @@ def get_messages(room_id):
     session.close()
     return jsonify({"messages": msgs})
 
-@app.route("/message", methods = ["POST"])
+@app.route("/messages", methods = ["POST"])
 def send_message():
     session = Session()
     r = request.get_json(force=True)
