@@ -42,15 +42,16 @@ After establishing that the server is online, you will be asked to **register** 
 
 If you successfully connected to the server, then you will be put into the **Main Room**.  There is only 1 room at this time.
 
-Now you can type a message and send it to other users.  Due to the RESTful nature of the system (not using sockets), you will only get updated information when you send a new message.
+Now you can type a message and send it to other users.  Due to the RESTful nature of the system (not using sockets), the information updating is not very efficient, but it works.
 
 Type `@help` to get a list of commands:
-- `@exit` or `@logout` to logout of the server
+- `@exit` or `@logout` or the escape key twice to logout of the server
 - `@python x=[4,5]; print(len(x)*4*5)` to execute sample python code
 - `@eval 3+4` to evaluate math expressions
 
 ## Known Bugs
 - If you don't use `@exit` or `@logout` to logout, user will stay logged in on server.
+- 2 clients can log in as the same user, but the server will think it's just one client.
 
     And probably a lot more I haven't run into yet.
 
