@@ -1,5 +1,5 @@
 # Hello!
-This is a set of 2 scripts.  The app and client scripts.  The app script is running on a host and the client is what you will be running on your machine.
+This is a set of 2 scripts.  The server and client files.  The server file is running on a host and the client is what you will be running on your machine.
 
 This project is a client/server project made for fun, however if was implemented using a RESTful design rather than with sockets.  Since this is a chatting app, using sockets would be much MUCH better, but ehhhhhh... I didn't care as much about efficiency as much as figuring out how to setup a database on the host.  I could have done a different project that made more sense with REST, but this seemed like more fun than a generic CRUD system.
 
@@ -59,9 +59,9 @@ Type `@help` to get a list of commands:
 ## Setup and Requirements
 The set up and requirements are the same for the client app
 
-You will need to change the DATABASE_URL in app_base.py to your database connection string
+You will need to change the BACKUP_DATABASE_URL in base.py to your database connection string
 
-You will then need to run inserts.py from the virtual environment:
+If you like, you can run inserts.py from the virtual environment, but it should automatically run after starting the server app:
 
 `python3 inserts.py`
 
@@ -70,9 +70,9 @@ The admin account has no special permissions, so that's why the password is sitt
 That should be it for localhost setup for the server
 
 ## Start
-All you need to do is run the app.py script from inside the virtual environment
+All you need to do is run the server.py script from inside the virtual environment
 
-`python3 app.py`
+`python3 server.py`
 
 The terminal will then block while executing the Flask app
 
