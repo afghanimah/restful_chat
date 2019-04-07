@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from datetime import datetime
+from sqlalchemy import desc
 
 from base import Session
 from user import User
@@ -11,8 +12,25 @@ import inserts
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/message/<int:room_id>", methods = ["GET"])
-def get_messages(room_id):
+@app.route("/messages/<int:room_id>/id/<int:msg_id>", methods = ["GET"])
+def get_all_messages_after_id(room_id, msg_id):
+    session = Session()
+    msgs = session.query(Message).filter(Message.room_id == room_id and Message.id > msg_id).all()
+    msgs = [x.to_dict() for x in msgs]
+    session.close()
+    return jsonify({"messages": msgs})
+
+@app.route("/messages/<int:room_id>/limit/<int:num>", methods = ["GET"])
+def get_all_messages_limit(room_id, num):
+    session = Session()
+    msgs = session.query(Message).filter(Message.room_id == room_id).order_by(Message.id.desc()).limit(num)
+    msgs = msgs[::-1]
+    msgs = [x.to_dict() for x in msgs]
+    session.close()
+    return jsonify({"messages": msgs})
+
+@app.route("/messages/<int:room_id>", methods = ["GET"])
+def get_all_messages(room_id):
     session = Session()
     msgs = session.query(Message).filter(Message.room_id == room_id).all()
     msgs = [x.to_dict() for x in msgs]
@@ -34,11 +52,12 @@ def send_message():
     session.add(msg)
     session.commit()
 
-    msgs = session.query(Message).filter(Message.room_id == room_id).all()
-    msgs = [x.to_dict() for x in msgs]
+    # msgs = session.query(Message).filter(Message.room_id == room_id).all()
+    # msgs = [x.to_dict() for x in msgs]
 
     session.close()
-    return jsonify({"messages": msgs})
+    # return jsonify({"messages": msgs})
+    return jsonify({"success": True})
 
 @app.route("/rooms/enter", methods = ["POST"])
 def enter_room():
