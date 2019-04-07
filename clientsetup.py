@@ -12,7 +12,7 @@ def strict_input(message, valid_values, limit = None):
         """
         result = None
 
-        while result not in valid_values and (limit == None or limit < 0):
+        while result not in valid_values and (limit == None or limit > 0):
             result = input(message)
             if limit != None: limit -= 1
         
