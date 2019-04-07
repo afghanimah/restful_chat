@@ -3,11 +3,11 @@ from flask_cors import CORS
 from datetime import datetime
 from sqlalchemy import desc
 
-from base import Session
-from user import User
-from room import Room
-from message import Message
-import inserts
+from database.base import Session
+from models.user import User
+from models.room import Room
+from models.message import Message
+import database.inserts as inserts
 
 app = Flask(__name__)
 CORS(app)
@@ -52,11 +52,7 @@ def send_message():
     session.add(msg)
     session.commit()
 
-    # msgs = session.query(Message).filter(Message.room_id == room_id).all()
-    # msgs = [x.to_dict() for x in msgs]
-
     session.close()
-    # return jsonify({"messages": msgs})
     return jsonify({"success": True})
 
 @app.route("/rooms/enter", methods = ["POST"])

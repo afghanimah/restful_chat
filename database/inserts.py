@@ -1,7 +1,7 @@
-from base import Session, engine, Base
-from user import User
-from room import Room
-from message import Message
+from database.base import Session, engine, Base
+from models.user import User
+from models.room import Room
+from models.message import Message
 
 def setup_db():
     Base.metadata.create_all(engine)

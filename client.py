@@ -1,5 +1,5 @@
-from clientsetup import ClientSetup
-from clientchat import ClientChat
+from clientparts.clientsetup import ClientSetup
+from clientparts.clientchat import ClientChat
 
 if __name__ == '__main__':
     client_setup = ClientSetup()

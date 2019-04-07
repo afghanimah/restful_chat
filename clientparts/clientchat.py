@@ -1,9 +1,9 @@
 import requests
 import os
 from threading import Thread
-import kbhit
-import terminalsize
 import time
+import lib.kbhit as kbhit
+import lib.terminalsize as terminalsize
 
 def fast_string_concat(string_list, delimiter=""):
     return delimiter.join([repr(s) for s in string_list])
