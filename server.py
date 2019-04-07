@@ -15,7 +15,7 @@ CORS(app)
 @app.route("/messages/<int:room_id>/id/<int:msg_id>", methods = ["GET"])
 def get_all_messages_after_id(room_id, msg_id):
     session = Session()
-    msgs = session.query(Message).filter(Message.room_id == room_id and Message.id > msg_id).all()
+    msgs = session.query(Message).filter((Message.room_id == room_id) & (Message.id > msg_id)).all()
     msgs = [x.to_dict() for x in msgs]
     session.close()
     return jsonify({"messages": msgs})
@@ -149,7 +149,7 @@ def login():
     un = r.get("username")
     pw = r.get("password")
 
-    u = session.query(User).filter(User.name == un and User.password == pw).all()
+    u = session.query(User).filter((User.name == un) & (User.password == pw)).all()
     if len(u) != 1:
         session.close()
         return jsonify({"success": False})
